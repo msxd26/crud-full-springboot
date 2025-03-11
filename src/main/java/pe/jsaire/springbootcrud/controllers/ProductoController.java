@@ -26,12 +26,6 @@ public class ProductoController {
     private final ProductoService productoService;
 
 
-    @GetMapping("/precio")
-    public ResponseEntity<Page<ProductoResponseDTO>> findAllPrecio(@RequestParam Integer page,
-                                                                   @RequestParam BigDecimal precio) {
-        return ResponseEntity.ok(productoService.findAllPrecio(page, precio));
-
-    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<ProductoResponseDTO>> findAll(@RequestParam String field,
