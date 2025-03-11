@@ -1,0 +1,19 @@
+
+version: "4"
+
+services:
+
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: "CrudFullProducto"
+
+    environment:
+      MYSQL_DATABASE: "crudfull"
+      MYSQL_USER: "jsaire"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"

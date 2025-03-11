@@ -1,0 +1,11 @@
+INSERT INTO productos (nombre, descripcion, sku, precio, stock_actual, unidad_medida, estado) VALUES
+                                                                                                  ('Laptop Dell XPS 15', 'Laptop de alto rendimiento con procesador Intel i7 y 16GB RAM', 'LAP-DXPS15-001', 1899.99, 10, 'unidad', TRUE),
+                                                                                                  ('Monitor LG UltraWide', 'Monitor de 34 pulgadas con resolución 4K', 'MON-LG34UW-002', 599.99, 15, 'unidad', TRUE),
+                                                                                                  ('Teclado Mecánico Redragon', 'Teclado mecánico con switches azules y retroiluminación RGB', 'TEC-REDR-003', 79.99, 50, 'unidad', TRUE),
+                                                                                                  ('Mouse Logitech MX Master 3', 'Mouse inalámbrico ergonómico con Bluetooth', 'MOU-LOGMX3-004', 99.99, 30, 'unidad', TRUE),
+                                                                                                  ('Silla Gamer Cougar', 'Silla ergonómica con soporte lumbar y reclinable', 'SIL-COUGAR-005', 299.99, 8, 'unidad', TRUE),
+                                                                                                  ('Disco Duro SSD 1TB Samsung', 'SSD NVMe con velocidades de lectura de 3500MB/s', 'SSD-SAMS1TB-006', 129.99, 25, 'unidad', TRUE),
+                                                                                                  ('Memoria RAM 16GB DDR4', 'Módulo de memoria DDR4 a 3200MHz', 'RAM-KING16GB-007', 69.99, 40, 'unidad', TRUE),
+                                                                                                  ('Fuente de Poder 750W Corsair', 'Fuente certificada 80+ Gold para PC de alto rendimiento', 'FP-CORS750-008', 119.99, 12, 'unidad', TRUE),
+                                                                                                  ('Tarjeta de Video RTX 3060', 'Tarjeta gráfica con 12GB GDDR6 y tecnología Ray Tracing', 'GPU-RTX3060-009', 449.99, 5, 'unidad', TRUE),
+                                                                                                  ('Router WiFi 6 TP-Link', 'Router con tecnología WiFi 6 y doble banda', 'ROU-TPL-W6-010', 89.99, 20, 'unidad', TRUE);
