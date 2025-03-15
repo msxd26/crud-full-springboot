@@ -4,14 +4,14 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pe.jsaire.springbootcrud.services.ProductoService;
+import pe.jsaire.springbootcrud.services.IProductoService;
 
 
 @Component
 @RequiredArgsConstructor
 public class ExistByNombreValidation implements ConstraintValidator<isExistByNombre, String> {
 
-    private final ProductoService productoService;
+    private final IProductoService productoService;
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

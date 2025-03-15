@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pe.jsaire.springbootcrud.services.ProductoService;
+import pe.jsaire.springbootcrud.services.IProductoService;
 
 
 @RequiredArgsConstructor
@@ -13,7 +13,7 @@ import pe.jsaire.springbootcrud.services.ProductoService;
 public class ExistBySkuValidation implements ConstraintValidator<isExistBySku, String> {
 
 
-    private final ProductoService productoService;
+    private final IProductoService productoService;
 
     @Override
     public boolean isValid(String sku, ConstraintValidatorContext context) {
