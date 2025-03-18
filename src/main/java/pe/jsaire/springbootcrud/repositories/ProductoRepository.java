@@ -1,5 +1,7 @@
 package pe.jsaire.springbootcrud.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pe.jsaire.springbootcrud.entities.Producto;
 
@@ -12,6 +14,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     Boolean existsByNombre(String nombre);
 
-    Producto findByNombre(String nombre);
+    Page<Producto> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
 
 }

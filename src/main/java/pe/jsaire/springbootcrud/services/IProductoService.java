@@ -5,11 +5,15 @@ import pe.jsaire.springbootcrud.dto.ProductoRequestDTO;
 import pe.jsaire.springbootcrud.dto.ProductoResponseDTO;
 
 
-public interface ProductoService {
+public interface IProductoService {
 
     ProductoResponseDTO save(ProductoRequestDTO requestDTO);
 
     ProductoResponseDTO findById(Long id);
+
+    ProductoResponseDTO update(Long id, ProductoRequestDTO requestDTO);
+
+    void deleteById(Long id);
 
     Boolean existsBySku(String sku);
 
@@ -17,8 +21,9 @@ public interface ProductoService {
 
     Boolean existsByNombre(String nombre);
 
-    ProductoResponseDTO findByNombre(String nombre);
+    //ProductoResponseDTO findByNombre(String nombre);
 
-    Page<ProductoResponseDTO> findAll(String field, Boolean desc, Integer page);
+    Page<ProductoResponseDTO> findAll(String busquedad,String field, Boolean desc, Integer page);
 
+    //Page<ProductoResponseDTO>  findByNombreContainingIgnoreCase(String nombre, Boolean desc, Integer page);
 }

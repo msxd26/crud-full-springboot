@@ -1,6 +1,7 @@
 package pe.jsaire.springbootcrud.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import pe.jsaire.springbootcrud.validations.isExistByNombre;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Builder
 public class ProductoRequestDTO {
 
     @NotBlank(message = "Se requiere un nombre")
@@ -36,6 +38,4 @@ public class ProductoRequestDTO {
     @NotBlank(message = "El campo es requerido")
     private String unidadMedida;
 
-
-    private Boolean estado = true;
 }

@@ -1,6 +1,3 @@
-
-version: "4"
-
 services:
 
   db:
@@ -15,5 +12,6 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
+
     ports:
       - "3306:3306"

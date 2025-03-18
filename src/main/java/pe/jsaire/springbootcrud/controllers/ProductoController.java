@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import pe.jsaire.springbootcrud.dto.ProductoRequestDTO;
 import pe.jsaire.springbootcrud.dto.ProductoResponseDTO;
 import pe.jsaire.springbootcrud.exceptions.ProductoNotFoundException;
-import pe.jsaire.springbootcrud.services.ProductoService;
+import pe.jsaire.springbootcrud.services.IProductoService;
 
-import java.math.BigDecimal;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,15 +23,26 @@ import java.util.Map;
 public class ProductoController {
 
 
-    private final ProductoService productoService;
+    private final IProductoService productoService;
 
 
 
     @GetMapping("/all")
-    public ResponseEntity<Page<ProductoResponseDTO>> findAll(@RequestParam String field,
-                                                             @RequestParam Boolean desc,
-                                                             @RequestParam Integer page) {
-        return ResponseEntity.ok(productoService.findAll(field, desc, page));
+    public ResponseEntity<Page<ProductoResponseDTO>> findAll(@RequestParam(required = false) String busquedad,
+                                                             @RequestParam(required = false) String field,
+                                                             @RequestParam(required = false)  Boolean desc,
+                                                             @RequestParam(required = false)  Integer page) {
+        return ResponseEntity.ok(productoService.findAll(busquedad,field, desc, page));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@Valid @RequestBody ProductoRequestDTO requestDTO, @PathVariable Long id,BindingResult result) {
+        if (result.hasFieldErrors()) {
+            return validation(result);
+        }
+        productoService.update(id,requestDTO);
+        return ResponseEntity.ok().build();
+
     }
 
     @GetMapping("{id}")
@@ -55,14 +66,13 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.OK).body(productoService.findBySku(sku));
     }
 
-    @GetMapping("/nombre")
-    public ResponseEntity<?> buscarPorNombre(@RequestParam String nombre) {
-        if (!productoService.existsByNombre(nombre)) {
-            throw new ProductoNotFoundException(" No existe este nombre :" + nombre + " !!");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(productoService.findByNombre(nombre));
-    }
 
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> eliminarProducto(@PathVariable Long id) {
+        productoService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
