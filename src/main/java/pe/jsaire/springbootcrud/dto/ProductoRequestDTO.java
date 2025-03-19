@@ -1,9 +1,8 @@
 package pe.jsaire.springbootcrud.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import pe.jsaire.springbootcrud.validations.PutOnlyValidated;
 import pe.jsaire.springbootcrud.validations.isExistByNombre;
 import pe.jsaire.springbootcrud.validations.isExistBySku;
 
@@ -13,18 +12,21 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductoRequestDTO {
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @isExistByNombre(message = "Este nombre ya existe en la base de datos")
+    @Size(min = 1, max = 100)
+    @NotBlank(message = "Este campo es requerido !!")
+    @isExistByNombre(groups = PutOnlyValidated.class)
     private String nombre;
 
     @NotBlank(message = "Se requiere una descripcion")
     private String descripcion;
 
-    @NotBlank( message = "El SKU no puede estar vacío")
-    @Size(max = 50, message = "El SKU no puede superar los 50 caracteres")
-    @isExistBySku(message = "Este SKU ya existe en la base de datos")
+    @NotBlank(message = "Este campo es requerido !!")
+    @Size(min = 1, max = 50, message = "El SKU no puede superar los 50 caracteres")
+    @isExistBySku(groups = PutOnlyValidated.class)
     private String sku;
 
     @NotNull(message = "El precio es obligatorio")
@@ -37,5 +39,7 @@ public class ProductoRequestDTO {
 
     @NotBlank(message = "El campo es requerido")
     private String unidadMedida;
+
+    private Boolean estado;
 
 }
