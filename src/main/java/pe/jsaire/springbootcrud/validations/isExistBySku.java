@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 
 
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy ={ExistBySkuValidation.class})
 public @interface isExistBySku {

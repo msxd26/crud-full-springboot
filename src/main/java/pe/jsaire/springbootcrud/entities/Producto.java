@@ -28,16 +28,16 @@ public class Producto {
     private String unidadMedida;
     private Boolean estado;
     private LocalDateTime creadoEn;
-    private LocalDateTime ActualizadoEn;
+    private LocalDateTime actualizadoEn;
 
 
     @PrePersist
     void prePersist() {
-        creadoEn = LocalDateTime.now();
+        this.creadoEn = LocalDateTime.now();
     }
 
-    @PostUpdate
-    void postUpdate() {
-        ActualizadoEn = LocalDateTime.now();
+    @PreUpdate
+    void preUpdate() {
+        this.actualizadoEn = LocalDateTime.now();
     }
 }

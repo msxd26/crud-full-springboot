@@ -15,15 +15,13 @@ public interface IProductoService {
 
     void deleteById(Long id);
 
-    Boolean existsBySku(String sku);
+    boolean existsBySku(String sku);
 
     ProductoResponseDTO findBySku(String sku);
 
-    Boolean existsByNombre(String nombre);
-
-    //ProductoResponseDTO findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
 
     Page<ProductoResponseDTO> findAll(String busquedad,String field, Boolean desc, Integer page);
-
-    //Page<ProductoResponseDTO>  findByNombreContainingIgnoreCase(String nombre, Boolean desc, Integer page);
+    
+    
 }

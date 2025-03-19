@@ -15,9 +15,10 @@ public class ExistByNombreValidation implements ConstraintValidator<isExistByNom
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null || value.isEmpty()) {
-            return true;
+        if (value == null || value.isBlank()) {
+            return false;
         }
+
         return !productoService.existsByNombre(value);
     }
 }

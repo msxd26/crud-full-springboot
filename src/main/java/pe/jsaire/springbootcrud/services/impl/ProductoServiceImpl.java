@@ -6,7 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import pe.jsaire.springbootcrud.dto.ProductoRequestDTO;
 import pe.jsaire.springbootcrud.dto.ProductoResponseDTO;
 import pe.jsaire.springbootcrud.entities.Producto;
@@ -26,7 +29,9 @@ public class ProductoServiceImpl implements IProductoService {
     private final ModelMapper modelMapper;
 
 
+
     @Override
+    @Transactional
     public ProductoResponseDTO save(ProductoRequestDTO productoRequestDTO) {
 
         Producto producto = convertToEntity(productoRequestDTO);
@@ -37,6 +42,7 @@ public class ProductoServiceImpl implements IProductoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ProductoResponseDTO findById(Long id) {
         Producto producto = repository.findById(id).orElseThrow(
                 () -> new ProductoNotFoundException("No se encontro el id " + id));
@@ -44,12 +50,26 @@ public class ProductoServiceImpl implements IProductoService {
     }
 
     @Override
+    @Transactional
     public ProductoResponseDTO update(Long id, ProductoRequestDTO requestDTO) {
 
         Producto producto = repository.findById(id).orElseThrow(
                 () -> new ProductoNotFoundException("No se encontro el id " + id));
 
-        var producotoModificado = producto.toBuilder().nombre(requestDTO.getNombre())
+
+        if (!producto.getNombre().equals(requestDTO.getNombre()) &&
+                repository.existsByNombre(requestDTO.getNombre())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre del producto ya existe.");
+        }
+
+        if (!producto.getSku().equals(requestDTO.getSku()) &&
+                repository.existsBySku(requestDTO.getSku())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El SKU del producto ya existe.");
+        }
+
+
+        var producotoModificado = producto.toBuilder()
+                .nombre(requestDTO.getNombre())
                 .descripcion(requestDTO.getDescripcion())
                 .precio(requestDTO.getPrecio())
                 .sku(requestDTO.getSku())
@@ -59,31 +79,36 @@ public class ProductoServiceImpl implements IProductoService {
         return convertToDTO(this.repository.save(producotoModificado));
     }
 
+
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Producto producto = repository.findById(id).orElseThrow(() -> new ProductoNotFoundException("No se encontro el id " + id));
         repository.delete(producto);
     }
 
     @Override
-    public Boolean existsBySku(String sku) {
+    public boolean existsBySku(String sku) {
         return repository.existsBySku(sku);
     }
 
 
     @Override
+    @Transactional(readOnly = true)
     public ProductoResponseDTO findBySku(String sku) {
         Producto producto = repository.findBySku(sku);
         return convertToDTO(producto);
     }
 
     @Override
-    public Boolean existsByNombre(String nombre) {
+    @Transactional(readOnly = true)
+    public boolean existsByNombre(String nombre) {
         return repository.existsByNombre(nombre);
     }
 
 
     @Override
+    @Transactional(readOnly = true)
     public Page<ProductoResponseDTO> findAll(String busquedad, String field, Boolean desc, Integer page) {
 
         String sortBy = (field != null) ? field : "id";
