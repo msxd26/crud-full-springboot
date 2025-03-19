@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pe.jsaire.springbootcrud.entities.Producto;
 import pe.jsaire.springbootcrud.services.IProductoService;
 
 
@@ -20,6 +21,14 @@ public class ExistBySkuValidation implements ConstraintValidator<isExistBySku, S
         if (sku == null || sku.isBlank()) {
             return false;
         }
-        return !productoService.existsBySku(sku);
+
+
+        if (productoService.existsBySku(sku)) {
+            context.buildConstraintViolationWithTemplate("Este SKU ya existe en la base de datos")
+                    .addConstraintViolation();
+            return false;
+        }
+
+       return !productoService.existsBySku(sku);
     }
 }

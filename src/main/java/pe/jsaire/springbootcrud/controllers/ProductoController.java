@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pe.jsaire.springbootcrud.dto.ProductoRequestDTO;
 import pe.jsaire.springbootcrud.dto.ProductoResponseDTO;
@@ -36,13 +37,12 @@ public class ProductoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody ProductoRequestDTO requestDTO, @PathVariable Long id,BindingResult result) {
+    public ResponseEntity<?> update(@Valid @RequestBody ProductoRequestDTO requestDTO, @PathVariable Long id, BindingResult result) {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
-        productoService.update(id,requestDTO);
-        return ResponseEntity.ok().build();
-
+        ProductoResponseDTO updatedProduct = productoService.update(id,requestDTO);
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @GetMapping("{id}")
@@ -65,8 +65,6 @@ public class ProductoController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(productoService.findBySku(sku));
     }
-
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> eliminarProducto(@PathVariable Long id) {

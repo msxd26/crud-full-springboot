@@ -15,16 +15,16 @@ import java.math.BigDecimal;
 @Builder
 public class ProductoRequestDTO {
 
-    @NotBlank(message = "Se requiere un nombre")
-    @isExistByNombre
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @isExistByNombre(message = "Este nombre ya existe en la base de datos")
     private String nombre;
 
     @NotBlank(message = "Se requiere una descripcion")
     private String descripcion;
 
-    @NotBlank(message = "El SKU no puede estar vacío")
+    @NotBlank( message = "El SKU no puede estar vacío")
     @Size(max = 50, message = "El SKU no puede superar los 50 caracteres")
-    @isExistBySku
+    @isExistBySku(message = "Este SKU ya existe en la base de datos")
     private String sku;
 
     @NotNull(message = "El precio es obligatorio")
