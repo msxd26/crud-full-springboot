@@ -15,12 +15,9 @@ public interface IProductoService {
 
     void deleteById(Long id);
 
-    boolean existsBySku(String sku);
-
     ProductoResponseDTO findBySku(String sku);
 
-    boolean existsByNombre(String nombre);
-
+    boolean existsBySku(String sku);
     Page<ProductoResponseDTO> findAll(String busquedad,String field, Boolean desc, Integer page);
     
     

@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ExistByNombreValidation.class)
 public @interface isExistByNombre {
 
-    String message() default "Este nombre ya existe en la base de datos!";
+    String message() default "Este nombre ya existe en la base de datos";
 
     Class<?>[] groups() default {};
 
